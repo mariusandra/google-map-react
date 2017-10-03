@@ -1,6 +1,6 @@
 {
   "name": "@mariusandra/google-map-react",
-  "version": "0.24.0",
+  "version": "0.24.1",
   "description": "isomorphic google map react component, allows render react components on the google map",
   "main": "lib/index",
   "scripts": {
