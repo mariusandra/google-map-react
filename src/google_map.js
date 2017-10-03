@@ -59,10 +59,10 @@ const _checkMinZoom = (zoom, minZoom) => {
     if (zoom < minZoom) {
       console.warn(
         'GoogleMap: ' + // eslint-disable-line
-          'minZoom option is less than recommended ' +
-          'minZoom option for your map sizes.\n' +
-          'overrided to value ' +
-          minZoom
+        'minZoom option is less than recommended ' +
+        'minZoom option for your map sizes.\n' +
+        'overrided to value ' +
+        minZoom
       );
     }
   }
@@ -125,7 +125,7 @@ export default class GoogleMap extends Component {
     distanceToMouse(pt, mousePos /* , markerProps */) {
       return Math.sqrt(
         (pt.x - mousePos.x) * (pt.x - mousePos.x) +
-          (pt.y - mousePos.y) * (pt.y - mousePos.y)
+        (pt.y - mousePos.y) * (pt.y - mousePos.y)
       );
     },
     hoverDistance: 30,
@@ -184,16 +184,16 @@ export default class GoogleMap extends Component {
       if (this.props.apiKey) {
         console.warn(
           'GoogleMap: ' + // eslint-disable-line no-console
-            'apiKey is deprecated, use ' +
-            'bootstrapURLKeys={{key: YOUR_API_KEY}} instead.'
+          'apiKey is deprecated, use ' +
+          'bootstrapURLKeys={{key: YOUR_API_KEY}} instead.'
         );
       }
 
       if (this.props.onBoundsChange) {
         console.warn(
           'GoogleMap: ' + // eslint-disable-line no-console
-            'onBoundsChange is deprecated, use ' +
-            'onChange({center, zoom, bounds, ...other}) instead.'
+          'onBoundsChange is deprecated, use ' +
+          'onChange({center, zoom, bounds, ...other}) instead.'
         );
       }
 
@@ -279,14 +279,14 @@ export default class GoogleMap extends Component {
       if (this.props.defaultCenter !== nextProps.defaultCenter) {
         console.warn(
           'GoogleMap: defaultCenter prop changed. ' + // eslint-disable-line
-            "You can't change default props."
+          "You can't change default props."
         );
       }
 
       if (this.props.defaultZoom !== nextProps.defaultZoom) {
         console.warn(
           'GoogleMap: defaultZoom prop changed. ' + // eslint-disable-line
-            "You can't change default props."
+          "You can't change default props."
         );
       }
     }
@@ -309,12 +309,12 @@ export default class GoogleMap extends Component {
         if (
           !currCenter ||
           Math.abs(nextPropsCenter.lat - currCenter.lat) +
-            Math.abs(nextPropsCenter.lng - currCenter.lng) >
-            kEPS
+          Math.abs(nextPropsCenter.lng - currCenter.lng) >
+          kEPS
         ) {
           if (
             Math.abs(nextPropsCenter.lat - centerLatLng.lat) +
-              Math.abs(nextPropsCenter.lng - centerLatLng.lng) >
+            Math.abs(nextPropsCenter.lng - centerLatLng.lng) >
             kEPS
           ) {
             this.map_.panTo({
@@ -608,30 +608,33 @@ export default class GoogleMap extends Component {
           draw() {
             const div = overlay.div;
             const overlayProjection = overlay.getProjection();
-            const bounds = map.getBounds();
-            const ne = bounds.getNorthEast();
-            const sw = bounds.getSouthWest();
-            const ptx = overlayProjection.fromLatLngToDivPixel(
-              new maps.LatLng(ne.lat(), sw.lng())
-            );
 
-            // need round for safari still can't find what need for firefox
-            const ptxRounded = detectBrowser().isSafari
-              ? { x: Math.round(ptx.x), y: Math.round(ptx.y) }
-              : { x: ptx.x, y: ptx.y };
+            if (div && overlayProjection) {
+              const bounds = map.getBounds();
+              const ne = bounds.getNorthEast();
+              const sw = bounds.getSouthWest();
+              const ptx = overlayProjection.fromLatLngToDivPixel(
+                new maps.LatLng(ne.lat(), sw.lng())
+              );
 
-            this_.updateCounter_++;
-            this_._onBoundsChanged(map, maps, !this_.props.debounced);
+              // need round for safari still can't find what need for firefox
+              const ptxRounded = detectBrowser().isSafari
+                ? { x: Math.round(ptx.x), y: Math.round(ptx.y) }
+                : { x: ptx.x, y: ptx.y };
 
-            if (!this_.googleApiLoadedCalled_) {
-              this_._onGoogleApiLoaded({ map, maps });
-              this_.googleApiLoadedCalled_ = true;
-            }
+              this_.updateCounter_++;
+              this_._onBoundsChanged(map, maps, !this_.props.debounced);
 
-            div.style.left = `${ptxRounded.x}px`;
-            div.style.top = `${ptxRounded.y}px`;
-            if (this_.markersDispatcher_) {
-              this_.markersDispatcher_.emit('kON_CHANGE');
+              if (!this_.googleApiLoadedCalled_) {
+                this_._onGoogleApiLoaded({ map, maps });
+                this_.googleApiLoadedCalled_ = true;
+              }
+
+              div.style.left = `${ptxRounded.x}px`;
+              div.style.top = `${ptxRounded.y}px`;
+              if (this_.markersDispatcher_) {
+                this_.markersDispatcher_.emit('kON_CHANGE');
+              }
             }
           },
         });
@@ -770,10 +773,10 @@ export default class GoogleMap extends Component {
       ) {
         console.warn(
           'GoogleMap: ' + // eslint-disable-line
-            'Usage of internal api objects is dangerous ' +
-            'and can cause a lot of issues.\n' +
-            'To hide this warning add yesIWantToUseGoogleMapApiInternals={true} ' +
-            'to <GoogleMap instance'
+          'Usage of internal api objects is dangerous ' +
+          'and can cause a lot of issues.\n' +
+          'To hide this warning add yesIWantToUseGoogleMapApiInternals={true} ' +
+          'to <GoogleMap instance'
         );
       }
 
@@ -1030,13 +1033,13 @@ export default class GoogleMap extends Component {
 
               size: this.geoService_.hasSize()
                 ? {
-                    width: this.geoService_.getWidth(),
-                    height: this.geoService_.getHeight(),
-                  }
+                  width: this.geoService_.getWidth(),
+                  height: this.geoService_.getHeight(),
+                }
                 : {
-                    width: 0,
-                    height: 0,
-                  },
+                  width: 0,
+                  height: 0,
+                },
             });
           }
 
@@ -1053,17 +1056,17 @@ export default class GoogleMap extends Component {
   render() {
     const mapMarkerPrerender = !this.state.overlayCreated
       ? <GoogleMapMarkersPrerender
-          experimental={this.props.experimental}
-          onChildClick={this._onChildClick}
-          onChildMouseDown={this._onChildMouseDown}
-          onChildMouseEnter={this._onChildMouseEnter}
-          onChildMouseLeave={this._onChildMouseLeave}
-          geoService={this.geoService_}
-          projectFromLeftTop={false}
-          distanceToMouse={this.props.distanceToMouse}
-          getHoverDistance={this._getHoverDistance}
-          dispatcher={this.markersDispatcher_}
-        />
+        experimental={this.props.experimental}
+        onChildClick={this._onChildClick}
+        onChildMouseDown={this._onChildMouseDown}
+        onChildMouseEnter={this._onChildMouseEnter}
+        onChildMouseLeave={this._onChildMouseLeave}
+        geoService={this.geoService_}
+        projectFromLeftTop={false}
+        distanceToMouse={this.props.distanceToMouse}
+        getHoverDistance={this._getHoverDistance}
+        dispatcher={this.markersDispatcher_}
+      />
       : null;
 
     return (
